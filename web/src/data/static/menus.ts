@@ -1,56 +1,56 @@
 export const menu = [
-  {
-    id: 1,
-    path: '/',
-    label: 'menu-demos',
-    subMenu: [
-      {
-        id: 1,
-        path: '/',
-        label: 'menu-modern',
-      },
-      {
-        id: 2,
-        path: '/standard',
-        label: 'menu-standard',
-      },
-      {
-        id: 3,
-        path: '/minimal',
-        label: 'menu-minimal',
-      },
-      {
-        id: 4,
-        path: '/vintage',
-        label: 'menu-vintage',
-      },
-      {
-        id: 5,
-        path: '/classic',
-        label: 'menu-classic',
-      },
-      {
-        id: 6,
-        path: '/trendy',
-        label: 'menu-trendy',
-      },
-      {
-        id: 7,
-        path: '/elegant',
-        label: 'menu-elegant',
-      },
-      {
-        id: 8,
-        path: '/refined',
-        label: 'menu-refined',
-      },
-      {
-        id: 9,
-        path: '/fashion',
-        label: 'menu-fashion',
-      },
-    ],
-  },
+  // {
+  //   id: 1,
+  //   path: '/',
+  //   label: 'menu-demos',
+  //   subMenu: [
+  //     {
+  //       id: 1,
+  //       path: '/',
+  //       label: 'menu-modern',
+  //     },
+  //     {
+  //       id: 2,
+  //       path: '/standard',
+  //       label: 'menu-standard',
+  //     },
+  //     {
+  //       id: 3,
+  //       path: '/minimal',
+  //       label: 'menu-minimal',
+  //     },
+  //     {
+  //       id: 4,
+  //       path: '/vintage',
+  //       label: 'menu-vintage',
+  //     },
+  //     {
+  //       id: 5,
+  //       path: '/classic',
+  //       label: 'menu-classic',
+  //     },
+  //     {
+  //       id: 6,
+  //       path: '/trendy',
+  //       label: 'menu-trendy',
+  //     },
+  //     {
+  //       id: 7,
+  //       path: '/elegant',
+  //       label: 'menu-elegant',
+  //     },
+  //     {
+  //       id: 8,
+  //       path: '/refined',
+  //       label: 'menu-refined',
+  //     },
+  //     {
+  //       id: 9,
+  //       path: '/fashion',
+  //       label: 'menu-fashion',
+  //     },
+  //   ],
+  // },
   {
     id: 2,
     path: '/search?category=men',
@@ -855,11 +855,11 @@ export const menu = [
       },
     ],
   },
-  {
-    id: 5,
-    path: '/search',
-    label: 'menu-search',
-  },
+  // {
+  //   id: 5,
+  //   path: '/search',
+  //   label: 'menu-search',
+  // },
   // {
   //   id: 6,
   //   path: '/shops',

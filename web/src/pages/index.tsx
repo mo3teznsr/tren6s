@@ -25,30 +25,40 @@ import {
   elegantHomeBanner,
 } from '@data/static/banners';
 import HeroSlider from '@containers/hero-slider';
+import TestimonialCarousel from '@containers/testimonial-carousel';
 
 export { getStaticProps } from '@framework/homepage/modern';
 
 export default function Home() {
   return (
     <>
-     <HeroSlider
+     {/* <HeroSlider
         data={homeElegantHeroSlider}
         paginationPosition="left"
         buttonClassName="block"
         variant="fullWidth"
         variantRounded="default"
         buttonPosition="inside"
-      />
-      <BannerBlock data={masonryBanner} />
-      <Container>
+      /> */}
+      
+      <div >
+      
+        <video className=" w-full h-[500px] object-cover" muted={true} playsInline={true} preload="none" autoPlay={true} loop={true}>
+          <source type="video/mp4" src="https://cdn.shopify.com/videos/c/o/v/8c6b20552cfd4d7aa9345c01cdcbb320.mp4" /></video></div>
+      {/* <BannerBlock data={masonryBanner} /> */}
+     <Container className='mt-4'>
+      <ExclusiveBlock />
+      <CategoryBlock
+          sectionHeading="text-shop-by-category"
+          variant="rounded"
+        />
+        </Container>
+      <Container className='mt-4'>
         <ProductsFlashSaleBlock />
       </Container>
       <BannerSliderBlock data={promotionBanner} />
       <Container>
-        <CategoryBlock
-          sectionHeading="text-shop-by-category"
-          variant="rounded"
-        />
+       
         <ProductsFeatured sectionHeading="text-featured-products" />
         <BannerCard
           data={banner[0]}
@@ -56,19 +66,19 @@ export default function Home() {
           className="mb-12 lg:mb-14 xl:mb-16 pb-0.5 lg:pb-1 xl:pb-0"
           classNameInner="aspect-[3.15/1]"
         />
-        <BrandGridBlock sectionHeading="text-top-brands" />
+        {/* <BrandGridBlock sectionHeading="text-top-brands" /> */}
         <BannerCard
           data={banner[1]}
           href={`${ROUTES.COLLECTIONS}/${banner[1].slug}`}
           className="mb-12 lg:mb-14 xl:mb-16 pb-0.5 lg:pb-1 xl:pb-0"
           classNameInner="aspect-[4.3/1]"
-        />
+        />11
         <BannerWithProducts
           sectionHeading="text-on-selling-products"
           categorySlug="/search"
           data={productBanner}
         />
-        <ExclusiveBlock />
+       
         <BannerCard
           data={elegantHomeBanner}
           href={`${ROUTES.COLLECTIONS}/${elegantHomeBanner.slug}`}
@@ -81,9 +91,11 @@ export default function Home() {
           limit={6}
         />
         <NewArrivalsProductFeed />
+        <TestimonialCarousel sectionHeading="text-testimonial" />
         {/* <DownloadApps /> */}
         <Support />
         <Instagram />
+       
         <Subscription className="px-5 py-12 bg-opacity-0 sm:px-16 xl:px-0 md:py-14 xl:py-16" />
       </Container>
       <Divider className="mb-0" />

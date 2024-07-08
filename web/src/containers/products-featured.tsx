@@ -50,7 +50,7 @@ const ProductsFeatured: React.FC<ProductsProps> = ({
 
       {error && <Alert message={error.message} />}
 
-      <div className="grid grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-3 md:gap-5 xl:gap-7">
+      <div className="grid grid-cols-2 md:grid-cols-3 md:grid-rows-2 gap-3 md:gap-5 xl:gap-7">
         {loading ? (
           <Spinner showText={false} />
         ) : (

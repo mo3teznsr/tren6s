@@ -1,13 +1,22 @@
 import cn from 'classnames';
 import Image from 'next/image';
-import type { FC } from 'react';
+import { useCallback, useState, type FC } from 'react';
 import { useUI } from '@contexts/ui.context';
 import usePrice from '@lib/use-price';
 import { Product } from '@type/index';
 import { siteSettings } from '@settings/site.settings';
+import { getVariations } from '@framework/utils/get-variations';
+import { useCart } from '@store/quick-cart/cart.context';
+import { isEmpty, isEqual, isMatch } from 'lodash';
+import { generateCartItem } from '@utils/generate-cart-item';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
+import Button from '@components/ui/button';
+import Counter from '@components/common/counter';
+import { ProductAttributes } from './product-attributes';
 
 interface ProductProps {
-  product: Product;
+  product: any;
   className?: string;
   contactClassName?: string;
   imageContentClassName?: string;
@@ -29,7 +38,58 @@ const ProductCard: FC<ProductProps> = ({
   variant = 'list',
   imgLoading,
 }) => {
-  const { openModal, setModalView, setModalData } = useUI();
+  const { openModal, setModalView, setModalData,openSidebar } = useUI();
+  const { addItemToCart } = useCart();
+  const [quantity, setQuantity] = useState(1);
+  const variations = getVariations(product?.variations!);
+  const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
+  const [viewCartBtn, setViewCartBtn] = useState<boolean>(false);
+  const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
+  const isSelected = !isEmpty(variations)
+  ? !isEmpty(attributes) &&
+    Object.keys(variations).every((variation) =>
+      attributes.hasOwnProperty(variation),
+    )
+  : true;
+
+let selectedVariation: any = {};
+if (isSelected) {
+  selectedVariation = product?.variation_options?.find((o: any) =>
+    isEqual(
+      o.options.map((v: any) => v.value).sort(),
+      Object.values(attributes).sort(),
+    ),
+  );
+}
+const openCart = useCallback(() => {
+  return openSidebar({
+    view: 'DISPLAY_CART',
+  });
+}, []);
+const { t } = useTranslation('common');
+function addToCart() {
+  if (!isSelected) return;
+  // to show btn feedback while product carting
+  setAddToCartLoader(true);
+  setTimeout(() => {
+    setAddToCartLoader(false);
+    setViewCartBtn(true);
+  }, 600);
+  const item = generateCartItem(product!, selectedVariation);
+  addItemToCart(item, quantity);
+
+  toast(t('add-to-cart'), {
+    //@ts-ignore
+    type: 'dark',
+    progressClassName: 'fancy-progress-bar',
+    position: 'top-right',
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+  });
+}
   const { name, image, min_price, max_price, product_type, description } =
     product ?? {};
 
@@ -51,8 +111,31 @@ const ProductCard: FC<ProductProps> = ({
     setModalView('PRODUCT_VIEW');
     return openModal();
   }
+  function handleAttribute(attribute: any) {
+    // Reset Quantity
+    if (!isMatch(attributes, attribute)) {
+      setQuantity(1);
+    }
+
+    setAttributes((prev) => ({
+      ...prev,
+      ...attribute,
+    }));
+  }
+
+  function handleClearAttribute() {
+    setAttributes(() => ({}));
+  }
+
+  function navigateToCartPage() {
+    //closeModal();
+    setTimeout(() => {
+      openCart();
+    }, 300);
+  }
 
   return (
+    <div>
     <div
       className={cn(
         'group box-border overflow-hidden flex rounded-md cursor-pointer',
@@ -68,11 +151,12 @@ const ProductCard: FC<ProductProps> = ({
         },
         className
       )}
-      onClick={handlePopupView}
+     
       // role="button"
       title={name}
     >
       <div
+       onClick={handlePopupView}
         className={cn(
           'flex relative ltr:rounded-l-md rtl:rounded-r-md ',
           {
@@ -162,6 +246,112 @@ const ProductCard: FC<ProductProps> = ({
           )}
         </div>
       </div>
+     
+    </div>
+    <div className='w-full p-3'>
+        {Object.keys(variations).map((variation) => {
+            return (
+              <ProductAttributes
+                key={`popup-attribute-key${variation}`}
+                title={variation}
+                attributes={variations[variation]}
+                active={attributes[variation]}
+                onClick={handleAttribute}
+                clearAttribute={handleClearAttribute}
+              />
+            );
+          })}
+
+          <div className="pt-2 w-full">
+            <div 
+            // className="flex items-center justify-between mb-4 space-x-3 sm:space-x-4 rtl:space-x-reverse"
+            >
+              {/* {isEmpty(variations) && (
+                <>
+                  {Number(product.quantity) > 0 ? (
+                    <Counter
+                      quantity={quantity}
+                      onIncrement={() => setQuantity((prev) => prev + 1)}
+                      onDecrement={() =>
+                        setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
+                      }
+                      disableDecrement={quantity === 1}
+                      disableIncrement={Number(product.quantity) === quantity}
+                    />
+                  ) : (
+                    <div className="text-base text-red-500 whitespace-nowrap ltr:lg:ml-7 rtl:first:-mr-4">
+                      {t('text-out-stock')}
+                    </div>
+                  )}
+                </>
+              )} */}
+
+              {/* {!isEmpty(selectedVariation) && (
+                <>
+                  {selectedVariation?.is_disable ||
+                  selectedVariation.quantity === 0 ? (
+                    <div className="text-base text-red-500 whitespace-nowrap ltr:lg:ml-7 rtl:first:-mr-4">
+                      {t('text-out-stock')}
+                    </div>
+                  ) : (
+                    <Counter
+                      quantity={quantity}
+                      onIncrement={() => setQuantity((prev) => prev + 1)}
+                      onDecrement={() =>
+                        setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
+                      }
+                      disableDecrement={quantity === 1}
+                      disableIncrement={
+                        Number(selectedVariation.quantity) === quantity
+                      }
+                    />
+                  )}
+                </>
+              )} */}
+
+              <Button
+                onClick={addToCart}
+                variant="slim"
+                
+                className={`w-full my-2 ${
+                  !isSelected && 'bg-gray-400 hover:bg-gray-400'
+                }`}
+                disabled={
+                  !isSelected ||
+                  !product?.quantity ||
+                  (!isEmpty(selectedVariation) &&
+                    !selectedVariation?.quantity) ||
+                  (!isEmpty(selectedVariation) && selectedVariation?.is_disable)
+                }
+                loading={addToCartLoader}
+              >
+                <span className="py-2 3xl:px-8">
+                  {product?.quantity ||
+                  (!isEmpty(selectedVariation) && selectedVariation?.quantity)
+                    ? t('text-add-to-cart')
+                    : t('text-out-stock')}
+                </span>
+              </Button>
+            </div>
+
+            {/* {viewCartBtn && (
+              <button
+                onClick={navigateToCartPage}
+                className="w-full mb-4 text-sm transition-colors bg-gray-100 border border-gray-300 rounded h-11 md:h-12 text-heading focus:outline-none hover:bg-gray-50 focus:bg-gray-50 xl:text-base"
+              >
+                {t('text-view-cart')}
+              </button>
+            )} */}
+
+            {/* <Button
+              onClick={handlePopupView}
+              variant="flat"
+              className="w-full h-11 md:h-12"
+            >
+              {t('text-view-details')}
+            </Button> */}
+          </div>
+          </div>
     </div>
   );
 };

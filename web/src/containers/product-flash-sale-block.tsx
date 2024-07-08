@@ -46,7 +46,7 @@ const ProductsFlashSaleBlock: React.FC<ProductsProps> = ({
   sectionHeading = 'text-flash-sale',
   className = 'mb-12 md:mb-14 xl:mb-16',
   variant = 'default',
-  limit = 10,
+  limit = 8,
 }) => {
   const { t } = useTranslation();
   const flashSellSettings = siteSettings?.homePageBlocks?.flashSale;
@@ -82,7 +82,7 @@ const ProductsFlashSaleBlock: React.FC<ProductsProps> = ({
         <div
           className={`${
             variant === 'default'
-              ? 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-x-3 md:gap-x-5 xl:gap-x-7 gap-y-4 lg:gap-y-5 xl:lg:gap-y-6 2xl:gap-y-8'
+              ? 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 2xl:grid-cols-4 gap-x-3 md:gap-x-5 xl:gap-x-7 gap-y-4 lg:gap-y-5 xl:lg:gap-y-6 2xl:gap-y-8'
               : 'block'
           }`}
         >

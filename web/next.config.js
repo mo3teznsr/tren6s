@@ -12,6 +12,7 @@ module.exports = withPWA({
   i18n,
   images: {
     domains: [
+      'tren6s.com',
       '127.0.0.1',
       'localhost',
       'googleusercontent.com',

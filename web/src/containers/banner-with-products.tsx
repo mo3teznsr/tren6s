@@ -95,7 +95,7 @@ const BannerWithProducts: React.FC<ProductsProps> = ({
                   <ProductCard
                     key={`product--key${product.id}`}
                     product={product}
-                    variant="listSmall"
+                    variant="gridSlim"
                   />
                 ))}
           </div>

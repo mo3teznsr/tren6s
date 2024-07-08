@@ -149,7 +149,7 @@ function addToCart() {
     }, 300);
   }
 
-  return (
+  return (<div>
     <div
      
       className={`${classes} cursor-pointer group flex flex-col bg-gray-200 rounded-md relative items-center justify-between overflow-hidden`}
@@ -238,110 +238,9 @@ function addToCart() {
         </div>
         
       </div>
-      <div>
-        {Object.keys(variations).map((variation) => {
-            return (
-              <ProductAttributes
-                key={`popup-attribute-key${variation}`}
-                title={variation}
-                attributes={variations[variation]}
-                active={attributes[variation]}
-                onClick={handleAttribute}
-                clearAttribute={handleClearAttribute}
-              />
-            );
-          })}
-
-          <div className="pt-2 md:pt-4">
-            <div 
-            // className="flex items-center justify-between mb-4 space-x-3 sm:space-x-4 rtl:space-x-reverse"
-            >
-              {isEmpty(variations) && (
-                <>
-                  {Number(product.quantity) > 0 ? (
-                    <Counter
-                      quantity={quantity}
-                      onIncrement={() => setQuantity((prev) => prev + 1)}
-                      onDecrement={() =>
-                        setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
-                      }
-                      disableDecrement={quantity === 1}
-                      disableIncrement={Number(product.quantity) === quantity}
-                    />
-                  ) : (
-                    <div className="text-base text-red-500 whitespace-nowrap ltr:lg:ml-7 rtl:first:-mr-4">
-                      {t('text-out-stock')}
-                    </div>
-                  )}
-                </>
-              )}
-
-              {/* {!isEmpty(selectedVariation) && (
-                <>
-                  {selectedVariation?.is_disable ||
-                  selectedVariation.quantity === 0 ? (
-                    <div className="text-base text-red-500 whitespace-nowrap ltr:lg:ml-7 rtl:first:-mr-4">
-                      {t('text-out-stock')}
-                    </div>
-                  ) : (
-                    <Counter
-                      quantity={quantity}
-                      onIncrement={() => setQuantity((prev) => prev + 1)}
-                      onDecrement={() =>
-                        setQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
-                      }
-                      disableDecrement={quantity === 1}
-                      disableIncrement={
-                        Number(selectedVariation.quantity) === quantity
-                      }
-                    />
-                  )}
-                </>
-              )} */}
-
-              <Button
-                onClick={addToCart}
-                variant="slim"
-                
-                className={`w-full my-2 ${
-                  !isSelected && 'bg-gray-400 hover:bg-gray-400'
-                }`}
-                disabled={
-                  !isSelected ||
-                  !product?.quantity ||
-                  (!isEmpty(selectedVariation) &&
-                    !selectedVariation?.quantity) ||
-                  (!isEmpty(selectedVariation) && selectedVariation?.is_disable)
-                }
-                loading={addToCartLoader}
-              >
-                <span className="py-2 3xl:px-8">
-                  {product?.quantity ||
-                  (!isEmpty(selectedVariation) && selectedVariation?.quantity)
-                    ? t('text-add-to-cart')
-                    : t('text-out-stock')}
-                </span>
-              </Button>
-            </div>
-
-            {/* {viewCartBtn && (
-              <button
-                onClick={navigateToCartPage}
-                className="w-full mb-4 text-sm transition-colors bg-gray-100 border border-gray-300 rounded h-11 md:h-12 text-heading focus:outline-none hover:bg-gray-50 focus:bg-gray-50 xl:text-base"
-              >
-                {t('text-view-cart')}
-              </button>
-            )} */}
-
-            <Button
-              onClick={handlePopupView}
-              variant="flat"
-              className="w-full h-11 md:h-12"
-            >
-              {t('text-view-details')}
-            </Button>
-          </div>
-          </div>
+   
+    </div>
+    
     </div>
   );
 };
