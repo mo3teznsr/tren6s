@@ -25,6 +25,7 @@ export const siteSettings = {
     websiteUrl: 'https://redq.io',
     address: '',
   },
+  whatsapp:"545454954",
   logo: {
     url: '/assets/images/logo.svg',
     alt: 'ChawkBazar',
@@ -32,9 +33,9 @@ export const siteSettings = {
     width: 95,
     height: 30,
   },
-  chatButtonUrl: 'https://www.facebook.com/redqinc',
+  chatButtonUrl: 'https://www.instagram.com/wearsphere_clothes/',
   defaultLanguage: 'en',
-  currency: 'USD',
+  currency: 'OMR',
   site_header: {
     languageMenu: [
       {

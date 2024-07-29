@@ -44,18 +44,18 @@ export default function PhoneNumberForm({
     >
       {({ control, formState: { errors } }) => (
         <div className="flex flex-col">
-          <div className="flex w-full items-center sm:min-w-[360px] gap-4 sm:gap-0 sm:flex-nowrap flex-wrap">
+          <div className="flex w-full flex-col items-center sm:min-w-[360px] gap-4 sm:gap-0 sm:flex-nowrap flex-wrap">
             <Controller
               name="phone_number"
               control={control}
-              render={({ field }) => (
+              render={({ field }) => (<div dir="ltr" >
                 <PhoneInput
-                  country="us"
+                  country="om"
                   inputClass={twMerge(
                     classNames(
-                      '!p-0 ltr:!pr-4 rtl:!pl-4 ltr:!pl-14 rtl:!pr-14 !flex !items-center !w-full !appearance-none !transition !duration-300 !ease-in-out !text-heading !text-sm focus:!outline-none focus:!ring-0 !border !border-gray-300 !rounded focus:!border-accent !h-[52px]',
+                      ' !flex !items-center !w-full !appearance-none !transition !duration-300 !ease-in-out !text-heading !text-sm focus:!outline-none focus:!ring-0 !border !border-gray-300 !rounded focus:!border-accent !h-[52px]',
                       variant === 'default'
-                        ? 'sm:ltr:!border-r-0 sm:rtl:!border-l-0 sm:ltr:!rounded-r-none sm:rtl:!rounded-l-none'
+                        ? ''
                         : '!h-12',
                     ),
                   )}
@@ -63,11 +63,12 @@ export default function PhoneNumberForm({
                   {...field}
                   disabled={isLoading}
                 />
+                </div>
               )}
             />
             {variant === 'default' ? (
               <Button
-                className="!text-sm w-full sm:w-auto sm:ltr:!rounded-l-none sm:rtl:!rounded-r-none grow-0 shrink-0 basis-auto"
+                className="!text-sm w-full mt-4 sm:w-auto sm:ltr:!rounded-l-none sm:rtl:!rounded-r-none grow-0 shrink-0 basis-auto"
                 loading={isLoading}
                 disabled={isLoading}
               >
@@ -76,7 +77,7 @@ export default function PhoneNumberForm({
                 ) : (
                   <>
                     {Boolean(phoneNumber) ? t('text-update') : t('text-add')}{' '}
-                    {t('nav-menu-contact')}
+                    {/* {t('nav-menu-contact')} */}
                   </>
                 )}
               </Button>

@@ -7,7 +7,7 @@ import NotFoundItem from "@components/404/not-found-item";
 export default function NewArrivalsProductFeed() {
   const { t } = useTranslation();
   const { data: products, isLoading: loading, error }: any = useProducts({
-    limit: 10,
+    limit: 12,
     orderBy: "created_at",
     sortedBy: "DESC",
   })

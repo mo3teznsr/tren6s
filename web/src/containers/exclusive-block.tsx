@@ -2,6 +2,8 @@ import Image from 'next/image';
 import Link from '@components/ui/link';
 import { useTranslation } from 'next-i18next';
 import { exclusiveBlock as data } from '@data/static/exclusive-block';
+import { useCategories } from '@framework/categories';
+import { useMemo } from 'react';
 
 interface Props {
   className?: string;
@@ -11,36 +13,46 @@ const ExclusiveBlock: React.FC<Props> = ({
   className = 'mb-12 md:mb-14 xl:mb-16',
 }) => {
   const { t } = useTranslation('common');
+  const {
+    data: categories,
+    isLoading: loading,
+    error,
+  } = useCategories({
+    limit: 10,
+    parent: null,
+  });
+  const parentCategories=useMemo(() => {
+    return categories?.data?.filter(x=>!x.parent?.name)
+  },[categories])
+
   return (
     <div className={`rounded-md overflow-hidden lg:block ${className}`}>
-      <div className="flex justify-between">
-        {data?.exclusiveData?.slice(0, 2).map((item: any) => (
+      <div className="flex gap-4 flex-col lg:flex-row  ">
+        {categories?.data?.filter(x=>!x.parent?.name).map((item: any) => (
           <div
-            className={`group w-2/4 flex justify-between items-end relative transition duration-200 ease-in ${
-              item.id === 2
-                ? 'flex-row-reverse bg-linenSecondary'
-                : 'bg-gray-150'
-            }`}
+            className={`group flex-1 flex    relative transition duration-200 ease-in `}
             key={`exclusive--key${item.id}`}
           >
-            <div className="relative z-10 flex transition duration-200 ease-in transform exclusiveImage group-hover:scale-105">
+            <div className="relative z-10 w-full lg:h-[600px] h-96 flex transition duration-200 ease-in transform exclusiveImage group-hover:scale-105">
               <Image
-                src={item.image}
+                src={item.image?.[0]?.original }
                 alt={item.buttonText}
-                width={600}
-                height={600}
+                
+                layout='fill'
+                objectFit='cover'
                 priority
+                className="rounded-xl"
               />
             </div>
             <Link
-              href={item.slug}
-              className={`absolute z-10 bottom-3 sm:bottom-5 xl:bottom-7 inline-block bg-white shadow-product rounded-md text-heading lowercase text-sm xl:text-xl 2xl:text-xl sm:uppercase px-3 sm:px-5 xl:px-6 2xl:px-8 py-2.5 sm:py-4 xl:py-5 2xl:py-7  transform transition duration-300 ease-in-out hover:bg-heading hover:text-white ${
+              href={`/search?category=${item.slug}`}
+              className={`absolute z-10 bottom-3 sm:bottom-5 xl:bottom-7 inline-block bg-white shadow-product rounded-md text-heading lowercase text-sm xl:text-xl 2xl:text-xl sm:uppercase px-3 sm:px-5 xl:px-6 2xl:px-8 py-2.5 sm:py-2 xl:py-2 2xl:py-2  transform transition duration-300 ease-in-out hover:bg-heading hover:text-white ${
                 item.id === 2
                   ? 'ltr:left-3 ltr:sm:left-5 ltr:xl:left-7 rtl:right-3 rtl:sm:right-5 rtl:xl:right-7'
                   : 'ltr:right-3 ltr:sm:right-5 ltr:xl:right-7 rtl:left-3 rtl:sm:left-5 rtl:xl:left-7'
               }`}
             >
-              {t(`${item.buttonText}`)}
+              {t(`${item.name}`)}
             </Link>
             {data.exclusiveName && (
               <div
@@ -56,7 +68,7 @@ const ExclusiveBlock: React.FC<Props> = ({
               </div>
             )}
 
-            {data.year && (
+            {/* {data.year && (
               <div
                 className={`exclusiveYear absolute top-16 xl:top-20 2xl:top-24 3xl:top-32 ltr:left-0 rtl:right-0 z-10 text-black font-bold leading-none tracking-widest ${
                   item.id === 2
@@ -68,7 +80,7 @@ const ExclusiveBlock: React.FC<Props> = ({
                   ? data.year.toString().slice(0, 2)
                   : data.year.toString().slice(2, 4)}
               </div>
-            )}
+            )} */}
           </div>
         ))}
       </div>

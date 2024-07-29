@@ -4,9 +4,12 @@ import LanguageSwitcher from '@components/ui/language-switcher';
 import Logo from '@components/ui/logo';
 import { useUI } from '@contexts/ui.context';
 import { menu } from '@data/static/menus';
+import { useCategories } from '@framework/categories';
 import { isMultiLangEnable } from '@lib/constants';
+import { Category } from '@type/index';
 import { addActiveScroll } from '@utils/add-active-scroll';
 import dynamic from 'next/dynamic';
+import path from 'path';
 import React, { useCallback, useRef } from 'react';
 const CartButton = dynamic(() => import('@components/cart/cart-button'), {
   ssr: false,
@@ -24,6 +27,30 @@ interface Props {
 type DivElementRef = React.MutableRefObject<HTMLDivElement>;
 const Header: React.FC<Props> = ({ variant = 'default' }) => {
   const { openSearch, openSidebar } = useUI();
+  
+  const {
+    data: categories,
+    isLoading: loading,
+    error,
+  } = useCategories({
+    limit: 10,
+    parent: null,
+  });
+
+  const categoriesMenu= categories?.data?.filter(x=>!x.parent?.name).map((x:Category)=>({
+    ...x,
+   
+    path: `/search?category=${x.slug}`,
+    label: x.name,
+    columns: [
+      {
+        id: x.id,
+        columnItems:x.children.map((item:Category)=>({...item,path: `/search?category=${item.slug}`,label: item.name})) 
+      }
+    ]
+  }))
+
+
   const siteHeaderRef = useRef() as DivElementRef;
   addActiveScroll(siteHeaderRef);
 
@@ -68,7 +95,7 @@ const Header: React.FC<Props> = ({ variant = 'default' }) => {
 
           {variant !== 'modern' ? (
             <HeaderMenu
-              data={menu}
+              data={categoriesMenu}
               className="hidden lg:flex ltr:md:ml-6 ltr:xl:ml-10 rtl:md:mr-6 rtl:xl:mr-10"
             />
           ) : (

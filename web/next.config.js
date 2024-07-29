@@ -7,8 +7,8 @@ const withPWA = require('next-pwa')({
   dest: 'public',
   runtimeCaching,
 });
-
-module.exports = withPWA({
+const withTM = require('next-transpile-modules')(['antd']);
+module.exports = withPWA(withTM({
   i18n,
   images: {
     domains: [
@@ -38,4 +38,4 @@ module.exports = withPWA({
   eslint: {
     ignoreDuringBuilds: true,
   },
-});
+}));

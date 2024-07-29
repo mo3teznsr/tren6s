@@ -118,7 +118,41 @@ class Client {
   address = {
     deleteAddress: ({ id }: { id: string }) =>
       HttpClient.delete(`${API_ENDPOINTS.ADDRESS}/${id}`),
+    
   };
+
+  review={
+
+    createReview:(review:any)=>{
+      HttpClient.post(`${API_ENDPOINTS.REVIEWS}`,review)
+    },
+    find: (params:any) => {
+      const {
+
+        limit = 30,
+        sortedBy = 'DESC',
+        orderBy = 'created_at',
+       
+      } = params;
+      return HttpClient.get<Type[]>(API_ENDPOINTS.TYPE, {
+        searchJoin: 'and',
+        limit,
+        sortedBy,
+        orderBy,
+        ...params,
+        search: HttpClient.stringifySearchQuery({...params}),
+      });
+    },
+    findOne: ({ slug, language }: GetParams) =>
+      HttpClient.get<Type[]>(`${API_ENDPOINTS.TYPE}/${slug}`, {
+        language,
+      }),
+
+    all: (params: ParamsType) =>
+      HttpClient.get<TypePaginator>(API_ENDPOINTS.TYPE, {
+        ...params,
+      }),
+  }
 
   auth = {
     login: (input: LoginInputType) =>

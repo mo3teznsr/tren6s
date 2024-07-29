@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import Image from 'next/image';
-import { useCallback, useState, type FC } from 'react';
+import { useCallback, useEffect, useState, type FC } from 'react';
 import { useUI } from '@contexts/ui.context';
 import usePrice from '@lib/use-price';
 import { Product } from '@type/index';
@@ -14,6 +14,10 @@ import { useTranslation } from 'react-i18next';
 import Button from '@components/ui/button';
 import Counter from '@components/common/counter';
 import { ProductAttributes } from './product-attributes';
+import VariationPrice from './product-variant-price';
+import StarIcon from '@components/icons/star-icon';
+import { useRouter } from 'next/router';
+import { ROUTES } from '@lib/routes';
 
 interface ProductProps {
   product: any;
@@ -38,6 +42,8 @@ const ProductCard: FC<ProductProps> = ({
   variant = 'list',
   imgLoading,
 }) => {
+  const [isClient, setIsClient] = useState(false)
+ 
   const { openModal, setModalView, setModalData,openSidebar } = useUI();
   const { addItemToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
@@ -60,7 +66,23 @@ if (isSelected) {
       Object.values(attributes).sort(),
     ),
   );
+
+
 }
+useEffect(() => {
+ 
+  if(!isEmpty(variations))
+  {
+    const selectedVations:any={}
+  Object.keys(variations).map((variation) => {
+    selectedVations[variation] = variations?.[variation]?.[0]?.value
+  })
+  setAttributes(selectedVations);
+ 
+}
+setIsClient(true)
+}, [])
+
 const openCart = useCallback(() => {
   return openSidebar({
     view: 'DISPLAY_CART',
@@ -106,6 +128,8 @@ function addToCart() {
     amount: max_price!,
   });
 
+  const router = useRouter();
+
   function handlePopupView() {
     setModalData(product.slug);
     setModalView('PRODUCT_VIEW');
@@ -135,7 +159,10 @@ function addToCart() {
   }
 
   return (
-    <div>
+    <div className="relative">
+      <div className='absolute text-sm flex gap-1 text-slate-50  px-3 py-1 rounded-lg bg-slate-800 top-2 right-2 z-10'>
+        <StarIcon /> {Number(product.ratings).toFixed(1)}
+      </div>
     <div
       className={cn(
         'group box-border overflow-hidden flex rounded-md cursor-pointer',
@@ -192,7 +219,7 @@ function addToCart() {
       </div>
       <div
         className={cn(
-          'w-full overflow-hidden',
+          'w-full overflow-hidden ',
           {
             'ltr:pl-0 rtl:pr-0 ltr:lg:pl-2.5 ltr:xl:pl-4 rtl:lg:pr-2.5 rtl:xl:pr-4 ltr:pr-2.5 ltr:xl:pr-4 rtl:pl-2.5 rtl:xl:pl-4':
               variant === 'grid' || variant === 'gridSmall',
@@ -203,7 +230,7 @@ function addToCart() {
         )}
       >
         <h2
-          className={cn('text-heading font-semibold truncate mb-1', {
+          className={cn('text-heading font-semibold truncate mb-1 px-2', {
             'text-sm md:text-base':
               variant === 'grid' || variant === 'gridSmall',
             'md:mb-1.5 text-sm sm:text-base md:text-sm lg:text-base xl:text-lg':
@@ -221,24 +248,26 @@ function addToCart() {
           </p>
         )}
         <div
-          className={`text-heading font-semibold text-sm sm:text-base mt-1.5 space-x-1 rtl:space-x-reverse ${
+          className={`text-heading px-2 font-semibold text-sm sm:text-base mt-1.5 space-x-1 rtl:space-x-reverse ${
             variant === 'grid' || variant === 'gridSmall'
               ? '3xl:text-lg lg:mt-2.5'
               : 'sm:text-lg md:text-base 3xl:text-xl md:mt-2.5 2xl:mt-3'
           }`}
         >
-          {product_type.toLocaleLowerCase() === 'variable' ? (
+          {!isEmpty(variations)? (
             <>
-              <span className="inline-block">{minPrice}</span>
-              <span> - </span>
-              <span className="inline-block">{maxPrice}</span>
+              <VariationPrice basePriceClassName="text-heading font-semibold text-base md:text-md lg:text-md"
+                  selectedVariation={selectedVariation}
+                  minPrice={product.min_price}
+                  maxPrice={product.max_price}
+                />
             </>
           ) : (
             <>
               <span className="inline-block">{price}</span>
 
               {basePrice && (
-                <del className="font-normal text-gray-800 sm:text-base ltr:pl-1 rtl:pr-1">
+                <del className="font-normal text-gray-800 text-xs sm:text-base ltr:pl-1 rtl:pr-1">
                   {basePrice}
                 </del>
               )}
@@ -246,9 +275,7 @@ function addToCart() {
           )}
         </div>
       </div>
-     
-    </div>
-    <div className='w-full p-3'>
+      {isClient&&<div className='w-full p-3'>
         {Object.keys(variations).map((variation) => {
             return (
               <ProductAttributes
@@ -325,13 +352,22 @@ function addToCart() {
                 }
                 loading={addToCartLoader}
               >
-                <span className="py-2 3xl:px-8">
+                {isClient&&<span className="py-2 3xl:px-8">
                   {product?.quantity ||
                   (!isEmpty(selectedVariation) && selectedVariation?.quantity)
                     ? t('text-add-to-cart')
                     : t('text-out-stock')}
-                </span>
+                </span>}
               </Button>
+              <Button
+              onClick={()=> router.push(`${ROUTES.PRODUCT}/${product.slug}`, undefined, {
+                locale: router.locale,
+              })}
+              variant="flat"
+              className="w-full h-11 md:h-12"
+            >
+              {isClient&&t('text-view-details')}
+            </Button>
             </div>
 
             {/* {viewCartBtn && (
@@ -351,7 +387,9 @@ function addToCart() {
               {t('text-view-details')}
             </Button> */}
           </div>
-          </div>
+          </div>}
+    </div>
+   
     </div>
   );
 };

@@ -47,10 +47,10 @@ const BannerWithProducts: React.FC<ProductsProps> = ({
 
   return (
     <div className={className}>
-      <SectionHeader
+      {/* <SectionHeader
         sectionHeading={sectionHeading}
         categorySlug={categorySlug}
-      />
+      /> */}
       {error ? (
         <Alert message={error?.message} />
       ) : (
@@ -75,12 +75,12 @@ const BannerWithProducts: React.FC<ProductsProps> = ({
               effectActive={true}
             />
           }
-          <div
+          {/* <div
             className={`col-span-full ${
               variant === 'modern'
                 ? 'xl:grid-cols-2 3xl:col-span-2'
                 : '3xl:col-span-3 xl:grid-cols-3'
-            } grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5 xl:gap-7 ${
+            } grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-5 xl:gap-7 ${
               variant === 'reverse' ? 'row-span-full' : ''
             }`}
           >
@@ -98,7 +98,7 @@ const BannerWithProducts: React.FC<ProductsProps> = ({
                     variant="gridSlim"
                   />
                 ))}
-          </div>
+          </div> */}
         </div>
       )}
     </div>

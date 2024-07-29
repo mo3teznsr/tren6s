@@ -21,6 +21,9 @@ import isMatch from 'lodash/isMatch';
 import { ROUTES } from '@lib/routes';
 import cn from 'classnames';
 import dynamic from 'next/dynamic';
+import Rating from '@mui/material/Rating';
+import LinearProgress from '@mui/material/LinearProgress';
+
 const FavoriteButton = dynamic(
   () => import('@components/product/favorite-button'),
   {
@@ -28,6 +31,15 @@ const FavoriteButton = dynamic(
   }
 );
 import { useSanitizeContent } from '@lib/sanitize-content';
+import RatingsBadge from '@components/ui/rating-badge';
+import StarIcon from '@components/icons/star-icon';
+import Modal from '@components/common/modal/modal';
+import ProductMetaReview from './product-meta-review';
+import ReviewForm from '@components/common/form/review-form';
+import Avatar from '@components/common/avatar';
+import { siteSettings } from '@settings/site.settings';
+import moment from 'moment';
+import { ChevronForward } from '@components/icons/chevron-forward';
 
 const productGalleryCarouselResponsive = {
   '768': {
@@ -46,6 +58,10 @@ type Props = {
 const ProductSingleDetails: React.FC<Props> = ({ product }: any) => {
   const { t } = useTranslation();
   const { width } = useWindowSize();
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const toggleShowSizeGuide = () => {
+    setShowSizeGuide(!showSizeGuide);
+  }
   const { addItemToCart } = useCart();
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
   const [quantity, setQuantity] = useState(1);
@@ -119,11 +135,23 @@ const ProductSingleDetails: React.FC<Props> = ({ product }: any) => {
   const variationImage = product.variation_options;
   const content = useSanitizeContent({ description: product?.description });
   return (
-    <div className="items-start block grid-cols-9 pb-10 lg:grid gap-x-10 xl:gap-x-14 pt-7 lg:pb-14 2xl:pb-20">
+    <div className="items-start block grid-cols-9 pb-10 lg:grid gap-x-10 xl:gap-x-14 relative pt-7 lg:pb-14 2xl:pb-20">
+       <button className="gallery-left absolute top-[18%] lg:hidden left-0  z-10 flex h-10 w-10 items-center justify-center rounded-full border-[1px] border-black bg-transparent opacity-100 hover:bg-black hover:text-white [&.swiper-button-disabled]:opacity-0">
+                    <ChevronForward className="h-4 w-4 rotate-180" />
+                  </button>
+                  <button className="gallery-right top-[18%] lg:hidden right-1 absolute z-10 flex h-10 w-10 items-center justify-center rounded-full border-[1px] border-black bg-transparent opacity-100 hover:bg-black hover:text-white [&.swiper-button-disabled]:opacity-0">
+                    <ChevronForward className="h-4 w-4" />
+                  </button>
       {width < 1025 ? (
         <Carousel
+        navigation={{
+          nextEl: '.gallery-right',
+          prevEl: '.gallery-left',
+        }}
           pagination={{
             clickable: true,
+            
+            
           }}
           breakpoints={productGalleryCarouselResponsive}
           className="product-gallery"
@@ -287,9 +315,17 @@ const ProductSingleDetails: React.FC<Props> = ({ product }: any) => {
               </>
             )}
           </div>
+          <div>
+            <span className="flex gap-1 items-center">
+             
+              <Rating  value={product.ratings} disabled  /> <span>{product.ratings} ({product.total_reviews})</span>
+            </span>
+          </div>
+         
         </div>
+        
         {!isEmpty(variations) && (
-          <div className="pb-3 border-b border-gray-300 pt-7">
+          <div className="pb-3  pt-7">
             {Object.keys(variations).map((variation) => {
               return (
                 <ProductAttributes
@@ -304,6 +340,23 @@ const ProductSingleDetails: React.FC<Props> = ({ product }: any) => {
             })}
           </div>
         )}
+
+        <div className='flex gap-1 items-center mb-4'>
+          <span className='font-semibold'>{t('tips')} :</span>
+          <span className='flex gap-1 text-yellow-600  items-center'>
+          <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-thumb-up-filled" width="22" height="22" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M13 3a3 3 0 0 1 2.995 2.824l.005 .176v4h2a3 3 0 0 1 2.98 2.65l.015 .174l.005 .176l-.02 .196l-1.006 5.032c-.381 1.626 -1.502 2.796 -2.81 2.78l-.164 -.008h-8a1 1 0 0 1 -.993 -.883l-.007 -.117l.001 -9.536a1 1 0 0 1 .5 -.865a2.998 2.998 0 0 0 1.492 -2.397l.007 -.202v-1a3 3 0 0 1 3 -3z" strokeWidth="0" fill="currentColor" />
+  <path d="M5 10a1 1 0 0 1 .993 .883l.007 .117v9a1 1 0 0 1 -.883 .993l-.117 .007h-1a2 2 0 0 1 -1.995 -1.85l-.005 -.15v-7a2 2 0 0 1 1.85 -1.995l.15 -.005h1z" strokeWidth="0" fill="currentColor" />
+</svg> 90%
+          </span>
+          <span>{t("text-tips")}</span>
+        </div>
+
+        <div className='pb-4 cursor-pointer flex gap-2' onClick={toggleShowSizeGuide}>
+        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-ruler-measure"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19.875 12c.621 0 1.125 .512 1.125 1.143v5.714c0 .631 -.504 1.143 -1.125 1.143h-15.875a1 1 0 0 1 -1 -1v-5.857c0 -.631 .504 -1.143 1.125 -1.143h15.75z" /><path d="M9 12v2" /><path d="M6 12v3" /><path d="M12 12v3" /><path d="M18 12v3" /><path d="M15 12v2" /><path d="M3 3v4" /><path d="M3 5h18" /><path d="M21 3v4" /></svg>
+            <span className=" text-slate-800" >{t("text-size-guide")}</span>
+          </div>
 
         <div className="flex items-center py-8 space-x-4 border-b border-gray-300 rtl:space-x-reverse ltr:md:pr-32 ltr:lg:pr-12 ltr:2xl:pr-32 ltr:3xl:pr-48 rtl:md:pl-32 rtl:lg:pl-12 rtl:2xl:pl-32 rtl:3xl:pl-48">
           {isEmpty(variations) && (
@@ -348,6 +401,9 @@ const ProductSingleDetails: React.FC<Props> = ({ product }: any) => {
               )}
             </>
           )}
+
+          
+
           <Button
             onClick={addToCart}
             variant="slim"
@@ -387,19 +443,21 @@ const ProductSingleDetails: React.FC<Props> = ({ product }: any) => {
               product.categories.length > 0 && (
                 <li>
                   <span className="inline-block font-semibold text-heading ltr:pr-2 rtl:pl-2">
-                    Category:
+                    {t("text-category")}:
                   </span>
+                  <div className='flex gap-2'>
                   {product.categories.map((category: any, index: number) => (
                     <Link
                       key={index}
                       href={`${ROUTES.CATEGORY}/${category?.slug}`}
-                      className="transition hover:underline hover:text-heading"
+                      className="transition hover:underline hover:text-heading bg-slate-100 rounded-lg px-2 py-1"
                     >
                       {product?.categories?.length === index + 1
                         ? category.name
                         : `${category.name}, `}
                     </Link>
                   ))}
+                  </div>
                 </li>
               )}
 
@@ -408,7 +466,7 @@ const ProductSingleDetails: React.FC<Props> = ({ product }: any) => {
               product.tags.length > 0 && (
                 <li className="productTags">
                   <span className="inline-block font-semibold text-heading ltr:pr-2 rtl:pl-2">
-                    Tags:
+                    {t('text-tags')}:
                   </span>
                   {product.tags.map((tag: any) => (
                     <Link
@@ -435,7 +493,7 @@ const ProductSingleDetails: React.FC<Props> = ({ product }: any) => {
               </Link>
             </li>
 
-            <li>
+            {/* <li>
               <span className="inline-block font-semibold text-heading ltr:pr-2 rtl:pl-2">
                 {t('text-shop-colon')}
               </span>
@@ -445,10 +503,86 @@ const ProductSingleDetails: React.FC<Props> = ({ product }: any) => {
               >
                 {product?.shop?.name}
               </Link>
-            </li>
+            </li> */}
           </ul>
+          
         </div>
+        <div>
+            
+            {product.reviews?.length > 0 ? (<div className="flex flex-col gap-4 ">
+              <h3 className=" text-heading font-semibold text-lg">{t("text-reviews")}</h3>
+              <div className=''>
+                <h3>{t("text-customer-reviews")}</h3>
+                <div className='flex gap-1'>
+
+                  <Rating  disabled value={product?.ratings} /> 
+
+                   <span>{product.ratings}</span> <span>{t("text-of")}</span> <span>5</span> 
+
+                </div>
+                {product.rating_count?.map((item)=><div className='flex gap-2 bg-ye items-center'>
+            <Rating  disabled value={item.rating} />
+            <LinearProgress variant="determinate" color="warning" className='flex-1' value={Number(item.total*100/product.total_reviews)} /> %{Number(item.total*100/product.total_reviews).toFixed(0)} ({item.total})
+          </div>)}
+                </div>
+                <div>
+              {product.reviews.map((review: any) => (
+                <div key={review.id} className='flex gap-2 border-b border-gray-300 pb-2 mb-4'>
+                  <div >
+                    
+                  <Avatar
+          src={
+            review?.avatar?.thumbnail ?? siteSettings?.avatar?.placeholder
+          }
+          title="user name"
+          className="h-[38px] w-[38px] border-border-200"
+        />
+        <div>
+
+          
+          </div>
+        
+
+                   
+                  </div>
+                  <div className='flex flex-col gap-1'>
+                  <span className=' font-semibold'>{review?.user.name}</span>
+                  
+                  <div className='text-xs'>
+                    {moment(review.created_at).format("DD MMM YYYY")}
+                    </div>
+
+                  <div>
+                    <Rating value={review.rating} disabled /> {}</div>
+                  <div>{review.comment}</div>
+
+                  </div>
+                </div>
+             ))}
+             </div>
+            </div>):(<></>)}
+          </div>
       </div>
+      
+      <Modal open={showSizeGuide} onClose={() => setShowSizeGuide(false)}>
+        <div className="w-full flex flex-col gap-4 overflow-hidden text-heading max-w-4xl rounded-xl bg-white p-4">
+          <h3 className="text-lg font-semibold  text-slate-800 border-b pb-2 border-gray-300">{t("text-size-guide")}</h3>
+          
+          <Image
+           sizes="100vw"
+           style={{
+             width: '100vw',
+             height: 'auto',
+           }}
+           width={500}
+           height={300}
+            src={product.size_guide?.original}
+            alt={t("text-size-guide")}
+           />
+
+        </div>
+      </Modal>
+      
     </div>
   );
 };

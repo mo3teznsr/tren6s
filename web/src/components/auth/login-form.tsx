@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 // @ts-ignore
 // import { ImGoogle2 } from "react-icons/im";
-import { ImFacebook2 } from 'react-icons/im';
+import { ImFacebook2, ImGoogle } from 'react-icons/im';
 import { useTranslation } from 'next-i18next';
 import * as yup from 'yup';
 import Input from '@components/ui/input';
@@ -203,6 +203,15 @@ const LoginForm: React.FC<Props> = ({ layout = 'modal' }) => {
         >
           <ImFacebook2 className="text-sm sm:text-base ltr:mr-1.5 rtl:ml-1.5" />
           {t('common:text-login-with-facebook')}
+        </Button>
+
+        <Button
+          disabled={loading}
+          className="h-11 md:h-12 w-full  text-slate-800 mt-2.5 hover:text-slate-200 bg-slate-100 hover:bg-slate-100"
+          onClick={() => signIn('google')}
+        >
+          <ImGoogle className="text-sm sm:text-base ltr:mr-1.5 rtl:ml-1.5" />
+          {t('common:text-login-with-google')}
         </Button>
 
         <Button

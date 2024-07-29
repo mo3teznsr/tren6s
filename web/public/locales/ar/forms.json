@@ -15,6 +15,7 @@
   "label-email-required": "بريدك الإلكتروني (مطلوب)",
   "label-male": "ذكر",
   "label-female": "أنثى",
+  "label-password-star":"كلمة المرور *",
   "label-name": "الاسم",
   "label-email": "البريد الإلكتروني",
   "label-password": "كلمة المرور",
@@ -32,6 +33,7 @@
   "label-phone": "الهاتف / الهاتف المحمول",
   "label-city": "المدينة / المدينة",
   "label-display-name": "اسم العرض *",
+  "text-login-mobile":"تسجيل الدخول عبر الهاتف",
   "label-postcode": "الرمز البريدي",
   "label-order-notes": "ملاحظات الطلب (اختياري)",
   "label-remember-me": "تذكرني",
@@ -52,4 +54,5 @@
   "error-email-format": "The provided email address format is not valid",
   "error-email-required": "You must need to provide your email address",
   "error-name-required": "Name is required"
+  
 }

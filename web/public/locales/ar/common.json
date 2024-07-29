@@ -57,6 +57,7 @@
   "text-colors": "الألوان",
   "text-clear-all": "مسح الكل",
   "text-category": "الفئة",
+  "text-size-guide": "دليل المقاسات",
   "text-tags": "العلامات",
   "text-sku": "SKU",
   "text-brands": "العلامات التجارية",
@@ -353,5 +354,23 @@
   "text-title-seconds": "ثواني",
   "text-title-change-language": "تغيير اللغة",
   "text-title-language": "لغة",
-  "text-maintenance-mode-title": "يبدأ وضع الصيانة في"
+  "text-maintenance-mode-title": "يبدأ وضع الصيانة في",
+  "tips": "ملاحظة",
+  "text-tips":"من العملاء وجدوا أن المقاس مناسب لهم",
+  "text-download":"text-download",
+  "text-wishlist":"المفضلة",
+  "text-login-mobile":"تسجيل الدخول عبر الهاتف",
+  "text-payment-status":"حالة الدفع",
+  "payment-cash-on-delivery":"الدفع عند الاستلام",
+  "text-reviews":"مراجعات المنتج",
+  "text-of":"من",
+  "text-write-a-review":"قيم المنتج",
+  "text-upload-highlight":"قم باختيار صورة ",
+  "text-upload-message":"",
+  "text-img-format":"تحميل صورة",
+  "text-oman":"عمان",
+  "text-uae":"الإمارات العربية المتحدة",
+  "text-saudi-arabia":"السعودية"
+
+  
 }

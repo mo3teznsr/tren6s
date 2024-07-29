@@ -5,8 +5,9 @@ import Logo from '@components/ui/logo';
 import { useSettings } from '@contexts/settings.context';
 import { useUI } from '@contexts/ui.context';
 import { mobileMenu } from '@data/static/menus';
+import { useCategories } from '@framework/categories';
 import { getIcon } from '@lib/get-icon';
-import { Social } from '@type/index';
+import { Category, Social } from '@type/index';
 import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
@@ -17,6 +18,27 @@ export default function MobileMenu() {
   const settings = useSettings();
 
   const socials = settings?.contactDetails?.socials;
+  const {
+    data: categories,
+    isLoading: loading,
+    error,
+  } = useCategories({
+    limit: 10,
+    parent: null,
+  });
+
+  const categoriesMenu= categories?.data?.filter(x=>!x.parent?.name).map((x:Category)=>({
+    ...x,
+   
+    path: `/search?category=${x.slug}`,
+    label: x.name,
+    columns: [
+      {
+        id: x.id,
+        columnItems:x.children.map((item:Category)=>({...item,path: `/search?category=${item.slug}`,label: item.name})) 
+      }
+    ]
+  }))
 
   const { closeSidebar } = useUI();
   const { t } = useTranslation('menu');
@@ -127,7 +149,7 @@ export default function MobileMenu() {
         <Scrollbar className="menu-scrollbar flex-grow mb-auto">
           <div className="flex flex-col py-7 px-0 lg:px-2 text-heading">
             <ul className="mobileMenu">
-              {mobileMenu?.map((menu: any, index: number) => {
+              {categoriesMenu?.map((menu: any, index: number) => {
                 const dept: number = 1;
                 const menuName: string = `sidebar-menu-${dept}-${index}`;
 

@@ -9,7 +9,7 @@ type Props = {
 
 export const AttributesFilter: React.FC<Props> = ({ attributes }) => (
   <>
-    {attributes.map((attribute: Attribute) => attribute.slug === 'color'
+    {attributes.map((attribute: Attribute) => attribute.slug.includes('color')||attribute.slug.includes('لون')
       ? <ColorFilter attribute={attribute} key={attribute.id}/> :
       <VariationFilter attribute={attribute} key={attribute.id}/>)}
   </>

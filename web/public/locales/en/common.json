@@ -27,6 +27,7 @@
   "breadcrumb-collection": "Collection",
   "text-page-explore": "explore",
   "text-page-header": "Page Heading",
+  "text-size-guide": "Size Guide",
   "text-page-order": "Order",
   "text-page-checkout": "Checkout",
   "text-page-contact-us": "Contact Us",
@@ -420,5 +421,8 @@
   "text-page-offers": "Awesome Coupons",
   "text-no-coupon": "Sorry, No Coupons Found",
   "text-follow-us": "Follow Us",
-  "text-since": "Since"
+  "text-since": "Since",
+  "text-whishlist":"ًWhishlist",
+  "text-reviews":"Reviews",
+  "text-of":"of"
 }

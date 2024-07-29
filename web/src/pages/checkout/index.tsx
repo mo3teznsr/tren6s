@@ -36,7 +36,7 @@ export default function CheckoutPage() {
             <div className="py-8 lg:py-10 lg:px-8 xl:py-14 xl:px-16 2xl:px-20">
               <div className="m-auto flex w-full max-w-5xl flex-col items-center rtl:space-x-reverse lg:flex-row lg:items-start lg:space-x-8">
                 <div className="w-full space-y-6 lg:max-w-[600px]">
-                  <ContactGrid
+                  <ContactGrid dir="ltr"
                     className="p-5 bg-white border border-gray-100 rounded-md shadow-checkoutCard md:p-7"
                     //@ts-ignore
                     userId={me?.id!}
@@ -75,7 +75,7 @@ export default function CheckoutPage() {
                     type={AddressType?.Shipping}
                   />
                   <ScheduleGrid
-                    className="p-5 md:p-8 bg-white shadow-checkoutCard rounded-md"
+                    className="p-5  hidden md:p-8 bg-white shadow-checkoutCard rounded-md"
                     label={t('text-delivery-schedule')}
                     count={4}
                   />

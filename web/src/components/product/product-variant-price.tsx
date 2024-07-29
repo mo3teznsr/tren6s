@@ -15,7 +15,7 @@ const VariationPrice: React.FC<Props> = ({
   minPrice,
   maxPrice,
   basePriceClassName = "text-heading font-semibold text-base md:text-xl lg:text-2xl",
-  discountPriceClassName = "font-segoe text-gray-400 text-base lg:text-xl ltr:pl-2.5 rtl:pr-2.5 -mt-0.5 md:mt-0",
+  discountPriceClassName = "font-segoe text-gray-400 text-base  ltr:pl-2.5 rtl:pr-2.5 -mt-0.5 md:mt-0",
 }: any) => {
   const { price, basePrice } = usePrice(
     selectedVariation && {
@@ -35,6 +35,7 @@ const VariationPrice: React.FC<Props> = ({
   });
   return (
     <>
+    <div className="flex gap-1 items-center">
       <div className={basePriceClassName}>
         {!isEmpty(selectedVariation)
           ? `${price}`
@@ -42,6 +43,7 @@ const VariationPrice: React.FC<Props> = ({
       </div>
 
       {basePrice && <del className={discountPriceClassName}>{basePrice}</del>}
+      </div>
     </>
   );
 };

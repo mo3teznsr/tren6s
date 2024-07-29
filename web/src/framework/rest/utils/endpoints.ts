@@ -26,6 +26,7 @@ export const API_ENDPOINTS = {
   ATTRIBUTES: 'attributes',
   SHOPS: 'shops',
   ORDERS: 'orders',
+  REVIEWS:"reviews",
   SEND_OTP_CODE: 'send-otp-code',
   VERIFY_OTP_CODE: 'verify-otp-code',
   OTP_LOGIN: 'otp-login',

@@ -34,7 +34,7 @@ export default function Home() {
     <>
      {/* <HeroSlider
         data={homeElegantHeroSlider}
-        paginationPosition="left"
+        paginationPosition="left"const router = useRouter();
         buttonClassName="block"
         variant="fullWidth"
         variantRounded="default"
@@ -54,44 +54,39 @@ export default function Home() {
         />
         </Container>
       <Container className='mt-4'>
-        <ProductsFlashSaleBlock />
+        {/* <ProductsFlashSaleBlock /> */}
       </Container>
       <BannerSliderBlock data={promotionBanner} />
       <Container>
        
-        <ProductsFeatured sectionHeading="text-featured-products" />
-        <BannerCard
-          data={banner[0]}
-          href={`${ROUTES.COLLECTIONS}/${banner[0].slug}`}
-          className="mb-12 lg:mb-14 xl:mb-16 pb-0.5 lg:pb-1 xl:pb-0"
-          classNameInner="aspect-[3.15/1]"
-        />
+        
+       
         {/* <BrandGridBlock sectionHeading="text-top-brands" /> */}
-        <BannerCard
+        {/* <BannerCard
           data={banner[1]}
           href={`${ROUTES.COLLECTIONS}/${banner[1].slug}`}
           className="mb-12 lg:mb-14 xl:mb-16 pb-0.5 lg:pb-1 xl:pb-0"
           classNameInner="aspect-[4.3/1]"
-        />11
+        /> */}
         <BannerWithProducts
           sectionHeading="text-on-selling-products"
           categorySlug="/search"
           data={productBanner}
         />
        
-        <BannerCard
+        {/* <BannerCard
           data={elegantHomeBanner}
           href={`${ROUTES.COLLECTIONS}/${elegantHomeBanner.slug}`}
           className="mb-12 md:mb-14 xl:mb-16 pb-0.5 md:pb-0 lg:pb-1 xl:pb-0 md:-mt-2.5"
           classNameInner="aspect-[2/1] md:aspect-[2.9/1]"
-        />
-        <ProductsFeatured
+        /> */}
+        {/* <ProductsFeatured
           sectionHeading="text-featured-products"
-          variant="fashion"
+          variant="flat"
           limit={6}
-        />
-        <NewArrivalsProductFeed />
-        <TestimonialCarousel sectionHeading="text-testimonial" />
+        /> */}
+        {/* <NewArrivalsProductFeed /> */}
+        {/* <TestimonialCarousel sectionHeading="text-testimonial" /> */}
         {/* <DownloadApps /> */}
         <Support />
         <Instagram />

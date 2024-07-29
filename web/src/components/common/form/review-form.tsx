@@ -29,7 +29,7 @@ const ReviewForm: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full mx-auto flex flex-col justify-center mt-6 lg:mt-8"
+      className="w-full mx-auto flex  flex-col justify-center mt-6 lg:mt-8"
       noValidate
     >
       <div className="flex flex-col space-y-5 md:space-y-6 lg:space-y-7">

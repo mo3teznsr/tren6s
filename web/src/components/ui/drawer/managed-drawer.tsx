@@ -39,8 +39,11 @@ export default function ManagedDrawer() {
       ) : (
         ''
       )}
+      
       {view === 'DISPLAY_FILTER' ? <FilterSidebar data={data} /> : ''}
+      
       {view === 'DISPLAY_MOBILE_MENU' ? <MobileMenu /> : ''}
+      11
       {view === 'DISPLAY_SHOP_SINGLE_SIDE_BAR' ? (
         <ShopSidebarDrawer data={data} />
       ) : (

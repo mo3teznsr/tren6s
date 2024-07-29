@@ -18,8 +18,8 @@ type MegaMenuProps = {
 const MegaMenu: React.FC<MegaMenuProps> = ({ columns }) => {
 	const { t } = useTranslation("menu");
 	return (
-		<div className="megaMenu shadow-header bg-gray-200 absolute ltr:-left-20 rtl:-right-20 ltr:xl:left-0 rtl:xl:right-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible">
-			<div className="grid grid-cols-5">
+		<div className="megaMenu max-w-[250px] shadow-header bg-gray-200 absolute ltr:-left-20 rtl:-right-20 ltr:xl:left-0 rtl:xl:right-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible">
+			<div className="grid ">
 				{columns?.map((column) => (
 					<ul
 						className="even:bg-gray-150 pb-7 2xl:pb-8 pt-6 2xl:pt-7"

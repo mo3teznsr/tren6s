@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 interface Props {
   className?: string;
@@ -25,6 +25,13 @@ export const ProductAttributes: React.FC<Props> = ({
   variant = 'default',
 }) => {
   const [activeValue, setActiveValue] = useState({ [title]: active });
+  useEffect(() => {
+    setActiveValue({ [title]: active })
+  },[active])
+
+  useCallback(() => {
+    
+  },[active])
   return (
     <div className={className}>
       <h3
@@ -74,10 +81,10 @@ export const ProductAttributes: React.FC<Props> = ({
             )}
             onClick={() => {
               onClick({ [title]: value });
-              setActiveValue({ [title]: value });
+            //  setActiveValue({ [title]: value });
             }}
           >
-            {title === 'color' || title === 'colors' ? (
+            { /^#([0-9A-F]{3}|[0-9A-F]{6})$/i.test(meta ?? value)  ? (
               <span
                 className="h-full w-full rounded block"
                 style={{ backgroundColor: meta ?? value }}
@@ -87,7 +94,7 @@ export const ProductAttributes: React.FC<Props> = ({
             )}
           </li>
         ))}
-      </ul>
+      </ul> 
       {activeValue[title] ? (
         <span
           className="cursor-pointer text-red-500 text-xs"

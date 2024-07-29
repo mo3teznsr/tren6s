@@ -61,12 +61,12 @@ const ContactGrid = ({ contact, label, count, className, userId, profileId }: Co
         </button>
       </div>
 
-      <div className={classNames('w-full')}>
+      <div dir="ltr" className={classNames('w-full')}>
         <PhoneInput
-          country="us"
+          country="om"
           value={contactNumber}
           disabled={true}
-          inputClass="!p-0 ltr:!pr-4 rtl:!pl-4 ltr:!pl-14 rtl:!pr-14 !flex !items-center !w-full !appearance-none !transition !duration-300 !ease-in-out !text-heading !text-sm focus:!outline-none focus:!ring-0 !border !border-gray-400 !rounded focus:!border-heading !h-12"
+          inputClass=" !w-full !appearance-none !transition !duration-300 !ease-in-out !text-heading !text-sm focus:!outline-none focus:!ring-0 !border !border-gray-400 !rounded focus:!border-heading !h-12"
           dropdownClass="focus:!ring-0 !border !border-gray-400 !shadow-350"
         />
       </div>

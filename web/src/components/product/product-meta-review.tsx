@@ -10,7 +10,7 @@ const ProductMetaReview: React.FC<Props> = ({ data }) => {
 	const [expanded, setExpanded] = useState<number>(0);
 	return (
 		<>
-			{data?.meta.map((item: any, index: any) => (
+			{data?.meta?.map((item: any, index: any) => (
 				<Collapse
 					i={index}
 					key={item.title}
