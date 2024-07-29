@@ -11,6 +11,7 @@ class Review extends Model
     use SoftDeletes;
 
     protected $table = 'reviews';
+    protected $with=['user'];
 
     public $guarded = [];
 

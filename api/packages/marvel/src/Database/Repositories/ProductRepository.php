@@ -257,7 +257,7 @@ class ProductRepository extends BaseRepository
             if (isset($request['variations'])) {
                 $product->variations()->attach($request['variations']);
             }
-            if (isset($request['variation_options']['upsert'])) {
+            if (isset($request['variation_options'])) {
 
                 foreach ($request['variation_options']['upsert'] as $variation_option) {
 

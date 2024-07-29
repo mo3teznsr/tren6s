@@ -74,6 +74,7 @@ class ProductUpdateRequest extends FormRequest
             'is_digital'                   => ['boolean'],
             'is_external'                  => ['boolean'],
             'is_rental'                    => ['boolean'],
+            'size_guide'                   => ['array'],
         ];
     }
 

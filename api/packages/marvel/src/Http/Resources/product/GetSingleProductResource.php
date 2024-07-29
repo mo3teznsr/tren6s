@@ -48,6 +48,7 @@ class GetSingleProductResource extends Resource
             'total_reviews'                => $this->total_reviews,
             'rating_count'                 => $this->rating_count,
             'my_review'                    => $this->my_review,
+            'reviews'                      => $this->reviews,
             'in_wishlist'                  => $this->in_wishlist,
             'sku'                          => $this->sku,
             'gallery'                      => $this->gallery,
@@ -60,7 +61,8 @@ class GetSingleProductResource extends Resource
             'price'                        => $this->price,
             'quantity'                     => $this->quantity,
             'unit'                         => $this->unit,
-            'in_flash_sale'                => $this->in_flash_sale
+            'in_flash_sale'                => $this->in_flash_sale,
+            "size_guide"                   => $this->size_guide
         ];
     }
 }

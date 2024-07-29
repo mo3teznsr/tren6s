@@ -36,11 +36,10 @@ class ProductResource extends Resource
             'in_flash_sale'        => $this->in_flash_sale,
             'variation_options'     => $this->variation_options,
             'variations'                   => getVariations($this->variations),
+            "size_guide"=> $this->size_guide,
             'ratings'                      => $this->ratings,
             'total_reviews'                => $this->total_reviews,
             'rating_count'                 => $this->rating_count,
-            'size_guide'                   => $this->size_guide,
-
         ];
     }
 }

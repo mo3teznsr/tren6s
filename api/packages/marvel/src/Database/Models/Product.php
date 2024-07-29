@@ -35,6 +35,7 @@ class Product extends Model
         'image' => 'json',
         'gallery' => 'json',
         'video' => 'json',
+        'size_guide' => 'json',
     ];
 
     protected $appends = [

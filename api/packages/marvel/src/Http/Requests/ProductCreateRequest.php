@@ -56,6 +56,7 @@ class ProductCreateRequest extends FormRequest
             'categories'                   => ['array'],
             'tags'                         => ['array'],
             'language'                     => ['nullable', 'string'],
+            'size_guide'                   => ['array'],
             'dropoff_locations'            => ['array'],
             'pickup_locations'             => ['array'],
             'digital_file'                 => ['array'],

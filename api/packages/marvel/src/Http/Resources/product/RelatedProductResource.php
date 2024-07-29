@@ -27,7 +27,13 @@ class RelatedProductResource extends Resource
             'image'                => $this->image,
             'video'                => $this->video,
             'price'                => $this->price,
-            'unit'                 => $this->unit
+            'unit'                 => $this->unit,
+            'ratings'                      => $this->ratings,
+            'total_reviews'                => $this->total_reviews,
+            'rating_count'                 => $this->rating_count,
+            'variation_options'     => $this->variation_options,
+            'variations'                   => getVariations($this->variations),
+            'quantity'             => $this->quantity,
         ];
     }
 }
