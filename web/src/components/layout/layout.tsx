@@ -21,7 +21,7 @@ const SiteLayout: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
       <Footer />
       <MobileNavigation />
       <div className="fixed hidden xl:flex xl:bottom-3 bottom-16 rounded-full   left-3 z-20">
-        <a htref={`https://wa.me/+971`}>
+        <a href={`https://wa.me/+971`}>
         <WhatsappIcon onClick={()=>window.open(`https://wa.me/+971${siteSettings.whatsapp}`)} className='w-8 h-8 xl:h-14 xl:w-14  rounded-full'/>
         </a>
       </div>
