@@ -88,7 +88,8 @@ class ProductRepository extends BaseRepository
         'in_stock',
         'is_taxable',
         'shop_id',
-        'sold_quantity'
+        'sold_quantity',
+        'size_guide',
     ];
     public function getProductDataArray(): array
     {

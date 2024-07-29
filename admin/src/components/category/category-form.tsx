@@ -13,7 +13,9 @@ import SelectInput from '@/components/ui/select-input';
 import StickyFooterPanel from '@/components/ui/sticky-footer-panel';
 import TextArea from '@/components/ui/text-area';
 import { Config } from '@/config';
+import ProductCategoryInput from '@/components/product/product-category-input';
 import {
+  useCategoriesQuery,
   useCreateCategoryMutation,
   useUpdateCategoryMutation
 } from '@/data/category';
@@ -135,6 +137,17 @@ export default function CreateOrUpdateCategoriesForm({
       suggestion: categoryDetailSuggestionLists as ItemProps[],
     });
   }, [generateName]);
+  const { categories, loading } = useCategoriesQuery({
+    limit: 999,
+    language: locale,
+  });
+
+  const categoryOptions = useMemo(() => {
+    return categories?.map((category) => ({
+      label: category.name,
+      value: category.id,
+    }));
+  }, [categories]);
 
   const { mutate: createCategory, isLoading: creating } =
     useCreateCategoryMutation();
@@ -160,7 +173,7 @@ export default function CreateOrUpdateCategoriesForm({
         })
       ),
       icon: values.icon?.value || '',
-      parent: values.parent?.id ?? null,
+      parent: values.parent?.value ?? null,
       // type_id: values.type?.id,
     };
 
@@ -218,6 +231,16 @@ export default function CreateOrUpdateCategoriesForm({
         />
 
         <Card className="w-full sm:w-8/12 md:w-2/3">
+        <div className="mb-5">
+            <Label>{t('form:input-label-parent-category')}</Label>
+            <SelectInput
+              name="parent"
+              control={control}
+              options={categoryOptions}
+              isClearable={true}
+              isMulti={false}
+            />
+          </div>
           <Input
             label={t('form:input-label-name')}
             {...register('name')}
@@ -270,6 +293,9 @@ export default function CreateOrUpdateCategoriesForm({
             />
           </div>
 
+          
+
+      
           <div className="mb-5">
             <Label>{t('form:input-label-select-icon')}</Label>
             <SelectInput

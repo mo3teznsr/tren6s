@@ -39,6 +39,8 @@ class ProductResource extends Resource
             'ratings'                      => $this->ratings,
             'total_reviews'                => $this->total_reviews,
             'rating_count'                 => $this->rating_count,
+            'size_guide'                   => $this->size_guide,
+
         ];
     }
 }

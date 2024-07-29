@@ -726,6 +726,7 @@ export interface Product {
   is_external?: boolean;
   is_taxable?: boolean;
   sale_price?: number;
+  size_guide?: string;
   video?: {
     url: string;
   }[];
@@ -768,6 +769,7 @@ export interface CreateProduct {
   manufacturer_id?: string;
   max_price?: number;
   min_price?: number;
+  size_guide?: string;
   variation_options?: UpsertVariationsHasMany;
   video: {
     url: string;
