@@ -18,7 +18,7 @@ import { useTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 const FavoriteButton = dynamic(
   () => import('@components/product/favorite-button'),
@@ -115,6 +115,17 @@ export default function ProductPopup({ productSlug }: { productSlug: string }) {
   function handleClearAttribute() {
     setAttributes(() => ({}));
   }
+
+  useEffect(() => {
+    if (!isEmpty(variations)) {
+      const selectedVariationItem={}
+
+      Object.keys(variations).map((variation) => {
+        selectedVariationItem[variation] = variations[variation][0].value
+      })
+      setAttributes(selectedVariationItem);
+    }
+  }, [product]);
 
   function navigateToCartPage() {
     closeModal();

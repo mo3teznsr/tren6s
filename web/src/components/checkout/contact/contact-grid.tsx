@@ -6,6 +6,7 @@ import { useTranslation } from "next-i18next";
 import { useUI } from "@contexts/ui.context";
 import PhoneInput from '@components/ui/forms/phone-input';
 import classNames from "classnames";
+import { siteSettings } from "@settings/site.settings";
 
 interface ContactProps {
   contact: string | undefined | null;
@@ -63,7 +64,7 @@ const ContactGrid = ({ contact, label, count, className, userId, profileId }: Co
 
       <div dir="ltr" className={classNames('w-full')}>
         <PhoneInput
-          country="om"
+          country={process.env.NEXT_PUBLIC_COUNTRY}
           value={contactNumber}
           disabled={true}
           inputClass=" !w-full !appearance-none !transition !duration-300 !ease-in-out !text-heading !text-sm focus:!outline-none focus:!ring-0 !border !border-gray-400 !rounded focus:!border-heading !h-12"

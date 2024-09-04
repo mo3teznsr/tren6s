@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@components/ui/button';
 import Counter from '@components/common/counter';
 import { getVariations } from '@framework/utils/get-variations';
@@ -23,6 +23,22 @@ import cn from 'classnames';
 import dynamic from 'next/dynamic';
 import Rating from '@mui/material/Rating';
 import LinearProgress from '@mui/material/LinearProgress';
+import LightGallery from 'lightgallery/react';
+
+// import styles
+import 'lightgallery/css/lightgallery.css';
+import 'lightgallery/css/lg-zoom.css';
+import 'lightgallery/css/lg-thumbnail.css';
+
+// If you want you can use SCSS instead of css
+import 'lightgallery/scss/lightgallery.scss';
+import 'lightgallery/scss/lg-zoom.scss';
+import 'lightgallery/scss/lg-autoplay.scss';
+
+// import plugins if you need
+import lgThumbnail from 'lightgallery/plugins/thumbnail';
+import lgZoom from 'lightgallery/plugins/zoom';
+import lgAutoplay from 'lightgallery/plugins/autoplay';
 
 const FavoriteButton = dynamic(
   () => import('@components/product/favorite-button'),
@@ -73,6 +89,17 @@ const ProductSingleDetails: React.FC<Props> = ({ product }: any) => {
   });
 
   const variations = getVariations(product?.variations!);
+
+  useEffect(() => {
+    if (!isEmpty(variations)) {
+      const selectedVariationItem={}
+
+      Object.keys(variations).map((variation) => {
+        selectedVariationItem[variation] = variations[variation][0].value
+      })
+      setAttributes(selectedVariationItem);
+    }
+  }, []);
 
   const isSelected = !isEmpty(variations)
     ? !isEmpty(attributes) &&
@@ -213,8 +240,58 @@ const ProductSingleDetails: React.FC<Props> = ({ product }: any) => {
           )}
         </Carousel>
       ) : (
-        <div className="col-span-5 grid grid-cols-2 gap-2.5">
-          {combineImages?.length > 1 ? (
+        <div  className="col-span-5 ">
+          <LightGallery
+                
+                elementClassNames='grid grid-cols-2 gap-2.5'
+                speed={500}
+                plugins={[lgThumbnail, lgZoom, lgAutoplay]}
+            >
+             
+              {combineImages?.map((item: Attachment, index: number) => (
+                <a
+                  key={item.original}
+                  href={item?.original}
+                  
+                >
+                  <Image
+                   
+                    src={
+                      item?.original ??
+                      '/assets/placeholder/products/product-gallery.svg'
+                    }
+                    alt={`${product?.name}--${index} variations`}
+                   className="object-cover w-full"
+                   width={475}
+                   height={618}
+                  />
+                </a>
+              ))}
+              {variationImage?.map((item: any, index: number) => {
+                if (!item?.image?.original) return null;
+                return (
+                  <a
+                    key={index}
+                   href={item?.image?.original}
+                  //  className="flex w-1/2 transition duration-150 ease-in hover:opacity-90"
+                  >
+                    <Image
+                     
+                      src={
+                        item?.image?.original ??
+                        '/assets/placeholder/products/product-gallery.svg'
+                      }
+                      alt={`${product?.name}--${index} variations`}
+                      className="object-cover w-full"
+                      width={475}
+                      height={618}
+                    />
+                  </a>
+                );
+              })}
+          
+            </LightGallery>
+          {/* {combineImages?.length > 1 ? (
             <>
               {combineImages?.map((item: Attachment, index: number) => (
                 <div
@@ -269,7 +346,7 @@ const ProductSingleDetails: React.FC<Props> = ({ product }: any) => {
                 />
               </div>
             </div>
-          )}
+          )} */}
         </div>
       )}
 

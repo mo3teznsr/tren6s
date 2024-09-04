@@ -52,7 +52,7 @@ export default function LanguageSwitcher() {
 
   return (<div className='flex gap-2 items-center'>
     
-    <WhatsappIcon onClick={()=>window.open(`https://wa.me/+971${siteSettings.whatsapp}`)} className='w-8 h-8 flex xl:hidden  rounded-full'/>
+    <WhatsappIcon onClick={()=>window.open(`https://wa.me/${siteSettings.whatsapp}`)} className='w-8 h-8 flex xl:hidden  rounded-full'/>
 
     <Button
         id="basic-button"

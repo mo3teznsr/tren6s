@@ -73,7 +73,7 @@ const Breadcrumb: React.FC<{ separator?: string }> = ({ separator = '/' }) => {
           activeClassName="font-semibold text-heading"
           key={breadcrumb.href}
         >
-          {convertBreadcrumbTitle(breadcrumb.breadcrumb)}
+          {convertBreadcrumbTitle(decodeURIComponent(breadcrumb.breadcrumb))}
         </ActiveLink>
       ))}
     </BreadcrumbItems>

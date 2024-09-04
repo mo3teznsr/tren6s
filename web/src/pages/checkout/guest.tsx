@@ -74,7 +74,7 @@ export default function GuestCheckoutPage() {
                 label={t('Personal Information')}
                 count={2}
               />
-              <GuestAddressGrid
+              {/* <GuestAddressGrid
                 className="p-5 bg-white border border-gray-100 rounded-md shadow-checkoutCard md:p-7"
                 label={t('text-billing-address')}
                 count={3}
@@ -82,24 +82,24 @@ export default function GuestCheckoutPage() {
                 //@ts-ignore
                 atom={billingAddressAtom}
                 type={AddressType.Billing}
-              />
+              /> */}
               <GuestAddressGrid
                 className="p-5 bg-white border border-gray-100 rounded-md shadow-checkoutCard md:p-7"
                 label={t('text-shipping-address')}
-                count={4}
+                count={3}
                 addresses={shippingAddress ? [shippingAddress] : []}
                 //@ts-ignore
                 atom={shippingAddressAtom}
                 type={AddressType.Shipping}
               />
-              <ScheduleGrid
+              {/* <ScheduleGrid
                 className="p-5 bg-white border border-gray-100 rounded-md shadow-checkoutCard md:p-7"
                 label={t('text-delivery-schedule')}
                 count={5}
-              />
+              /> */}
               <OrderNote
                 className="p-5 bg-white border border-gray-100 rounded-md shadow-checkoutCard md:p-7"
-                count={6}
+                count={4}
                 label={t('Order Note')}
               />
             </div>

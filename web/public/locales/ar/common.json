@@ -165,7 +165,7 @@
   "forgot-password-helper": "سنرسل لك رابطًا لإعادة تعيين كلمة المرور",
   "button-load-more": "تحميل المزيد",
   "button-go-home": "اذهب للمنزل",
-  "button-place-order": "مكان الطلب",
+  "button-place-order": "انشاء طلب",
   "button-send-message": "إرسال رسالة",
   "button-submit": "إرسال",
   "button-view": "عرض",
@@ -209,7 +209,7 @@
   "text-title": "العنوان",
   "text-country": "البلد",
   "text-city": "المدينة",
-  "text-state": "الولاية",
+  "text-state": "الامارة",
   "text-zip": "ZIP",
   "text-street-address": "عنوان الشارع",
   "text-save": "حفظ",
@@ -370,7 +370,17 @@
   "text-img-format":"تحميل صورة",
   "text-oman":"عمان",
   "text-uae":"الإمارات العربية المتحدة",
-  "text-saudi-arabia":"السعودية"
+  "text-saudi-arabia":"السعودية",
+  "OrderNote":"ملاحظات الطلب",
+  "text-guest-checkout":"انشاء طلب كضيف",
+  "Dubai":"دبي",
+  "Abu Dhabi":"ابوظبي",
+  "Sharjah":"الشارقة",
+  "Ajman":"عجمان",
+  "Fujairah":"فجيرة",
+  "Ras Al Khaimah":"راس الخيمة",
+  "Umm Al Quwain":"أم القوين",
+  "Khor Fakkan":"خور فكان"
 
   
 }

@@ -50,7 +50,7 @@ export default function PhoneNumberForm({
               control={control}
               render={({ field }) => (<div dir="ltr" >
                 <PhoneInput
-                  country="om"
+                 country={process.env.NEXT_PUBLIC_COUNTRY}
                   inputClass={twMerge(
                     classNames(
                       ' !flex !items-center !w-full !appearance-none !transition !duration-300 !ease-in-out !text-heading !text-sm focus:!outline-none focus:!ring-0 !border !border-gray-300 !rounded focus:!border-accent !h-[52px]',

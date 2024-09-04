@@ -89,7 +89,9 @@
     @apply text-heading;
   }
 }
-
+.lg-container{
+  direction: ltr !important;
+}
 @layer components {
   .menuIcon {
     width: 26px;

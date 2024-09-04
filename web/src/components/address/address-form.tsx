@@ -10,16 +10,17 @@ import { Form } from "@components/ui/forms/form";
 import { useUpdateCustomer } from "@framework/customer";
 import { useUI } from "@contexts/ui.context";
 import { GoogleMapLocation } from "@type/index";
+import { MenuItem, Select } from "@mui/material";
 
 type FormValues = {
   __typename?: string;
-  title: string;
-  type: AddressType;
+  title?: string;
+  type?: AddressType;
   address: {
-    country: string;
+    country?: string;
     city: string;
     state: string;
-    zip: string;
+    zip?: string;
     street_address: string;
   };
   location: GoogleMapLocation;
@@ -30,12 +31,12 @@ const addressSchema = yup.object().shape({
     .string()
     .oneOf([AddressType?.Billing, AddressType?.Shipping])
     .required("error-type-required"),
-  title: yup.string().required("error-title-required"),
+ // title: yup.string().required("error-title-required"),
   address: yup.object().shape({
-    country: yup.string().required("error-country-required"),
+   // country: yup.string().required("error-country-required"),
     city: yup.string().required("error-city-required"),
     state: yup.string().required("error-state-required"),
-    zip: yup.string().required("error-zip-required"),
+  //  zip: yup.string().required("error-zip-required"),
     street_address: yup.string().required("error-street-required"),
   }),
 });
@@ -46,7 +47,16 @@ export const AddressForm: React.FC<any> = ({
   isLoading,
 }) => {
   const { t } = useTranslation("common");
-
+const emirates=[
+  "Dubai",
+  "Abu Dhabi",
+  "Sharjah",
+  "Ajman",
+  "Fujairah",
+  "Ras Al Khaimah",
+  "Umm Al Quwain",
+  "Khor Fakkan"
+]
   return (
     <>
       <Form<FormValues>
@@ -63,7 +73,7 @@ export const AddressForm: React.FC<any> = ({
         {({ register, formState: { errors } }) => {
           return (
             <>
-              <div>
+              <div className="hidden">
                 <Label>{t('text-type')}</Label>
                 <div className="flex items-center space-x-4 rtl:space-x-reverse">
                   <Radio
@@ -83,20 +93,31 @@ export const AddressForm: React.FC<any> = ({
                 </div>
               </div>
 
-              <Input
+              {/* <Input
                 labelKey={t("text-title")}
                 {...register("title")}
                 errorKey={t(errors?.title?.message!)}
                 variant="outline"
                 className="col-span-2"
-              />
-              <Input
+              /> */}
+              {/* <Input
                 labelKey={t('text-country')}
                 {...register('address.country')}
                 errorKey={t(errors?.address?.country?.message!)}
                 variant="outline"
-              />
-
+              /> */}
+              <div>
+                <label>{t('text-state')}</label>
+              <Select fullWidth size="small" {...register('address.state')} >
+                {emirates.map((emirate) => (
+                  <MenuItem key={emirate} value={emirate}>
+                    {t(emirate)}
+                  </MenuItem>
+                ))}
+              </Select>
+              {errors?.address?.state?.message&&<div className="text-red-500 text-xs mt-1">{t(errors?.address?.state?.message!)}</div>}
+              </div>
+              
               <Input
                 labelKey={t('text-city')}
                 {...register('address.city')}
@@ -104,19 +125,14 @@ export const AddressForm: React.FC<any> = ({
                 variant="outline"
               />
 
-              <Input
-                labelKey={t('text-state')}
-                {...register('address.state')}
-                errorKey={t(errors?.address?.state?.message!)}
-                variant="outline"
-              />
+              
 
-              <Input
+              {/* <Input
                 labelKey={t('text-zip')}
                 {...register('address.zip')}
                 errorKey={t(errors?.address?.zip?.message!)}
                 variant="outline"
-              />
+              /> */}
 
               <TextArea
                 labelKey={t('text-street-address')}

@@ -27,8 +27,9 @@ const CreateOrUpdateGuestAddressForm = () => {
   const [selectedAddress, setAddress] = useAtom(atom);
 
   function onSubmit(values: FormValues) {
+    console.log("values", values)
     const formattedInput = {
-      title: values.title,
+      title: values.title??"Home",
       type: values.type,
       address: values.address,
     };
@@ -44,10 +45,11 @@ const CreateOrUpdateGuestAddressForm = () => {
       <AddressForm
         onSubmit={onSubmit}
         defaultValues={{
-          title: address?.title ?? '',
+          title: address?.title ?? 'Home',
           type: address?.type ?? type,
           address: {
             ...address?.address,
+            country: "UAE",
           },
         }}
       />

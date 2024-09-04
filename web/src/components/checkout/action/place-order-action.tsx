@@ -102,7 +102,7 @@ export const PlaceOrderAction: React.FC<{ children: React.ReactNode }> = (
       use_wallet_points,
       payment_gateway,
       billing_address: {
-        ...(billing_address?.address && billing_address.address),
+        ...(shipping_address?.address && shipping_address.address),
       },
       shipping_address: {
         ...(shipping_address?.address && shipping_address.address),
@@ -121,9 +121,8 @@ export const PlaceOrderAction: React.FC<{ children: React.ReactNode }> = (
   const isAllRequiredFieldSelected = [
     customer_contact,
     payment_gateway,
-    billing_address,
     shipping_address,
-    delivery_time,
+    // delivery_time,
     available_items,
   ].every((item) => !isEmpty(item));
 

@@ -30,7 +30,7 @@ export const CheckAvailabilityAction: React.FC<{
   } = useVerifyCheckout();
 
   function handleVerifyCheckout() {
-    if (billing_address && shipping_address) {
+    if ( shipping_address) {
       verifyCheckout(
         {
           amount: total,
@@ -52,7 +52,7 @@ export const CheckAvailabilityAction: React.FC<{
         }
       );
     } else {
-      setError("error-add-both-address");
+      setError("error-shipping-address");
     }
   }
 

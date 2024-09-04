@@ -196,10 +196,20 @@ const LoginForm: React.FC<Props> = ({ layout = 'modal' }) => {
       </div>
 
       <div className="grid grid-cols-1 gap-4 mt-2">
+      {isCheckout && guestCheckout && (
+          <Button
+            className="h-11 w-full !bg-pink-700 !text-light hover:!bg-pink-800 sm:h-12"
+            disabled={loading}
+            onClick={() => router.push(ROUTES.checkoutGuest)}
+          >
+            <AnonymousIcon className="h-5 ltr:mr-2 rtl:ml-2 text-light" />
+            {t('text-guest-checkout')}
+          </Button>
+        )}
         <Button
           disabled={loading}
           className="h-11 md:h-12 w-full mt-2.5 bg-google hover:bg-googleHover"
-          onClick={() => signIn('facebook')}
+          onClick={() => signIn('facebook',{callbackUrl:"/ae"})}
         >
           <ImFacebook2 className="text-sm sm:text-base ltr:mr-1.5 rtl:ml-1.5" />
           {t('common:text-login-with-facebook')}
@@ -222,16 +232,7 @@ const LoginForm: React.FC<Props> = ({ layout = 'modal' }) => {
           <MobileIcon className="h-5 ltr:mr-2 rtl:ml-2 text-light" />
           {t('text-login-mobile')}
         </Button>
-        {isCheckout && guestCheckout && (
-          <Button
-            className="h-11 w-full !bg-pink-700 !text-light hover:!bg-pink-800 sm:h-12"
-            disabled={loading}
-            onClick={() => router.push(ROUTES.checkoutGuest)}
-          >
-            <AnonymousIcon className="h-5 ltr:mr-2 rtl:ml-2 text-light" />
-            {t('text-guest-checkout')}
-          </Button>
-        )}
+        
       </div>
 
       <div className="mt-5 mb-1 text-sm text-center sm:text-base text-body">

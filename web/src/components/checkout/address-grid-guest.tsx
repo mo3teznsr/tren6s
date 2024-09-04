@@ -28,7 +28,7 @@ export const GuestAddressGrid: React.FC<AddressesProps> = ({
   const { openModal, setModalData, setModalView } = useUI();
 
   function onAdd() {
-    setModalData({ type, atom });
+    setModalData({ type, atom,title:"home", address: {country:"UAE"} });
     setModalView('ADD_OR_UPDATE_GUEST_ADDRESS');
     openModal();
   }

@@ -82,7 +82,7 @@ function CustomApp({
 
   return (
     <AnimatePresence initial={false} onExitComplete={handleExitComplete}>
-      <SessionProvider session={session}>
+      <SessionProvider session={session}   basePath='/ae'>
         <QueryClientProvider client={queryClient}>
           <Hydrate state={pageProps.dehydratedState}>
             <AppSettings>
